@@ -16,7 +16,7 @@ class Project(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     description = Column(String, nullable=True)
-    status = Column(String, default="W trakcie")
+    status = Column(String, default="in progress")
     user_id = Column(Integer, ForeignKey("users.id"))
-    
+
     owner = relationship("User", back_populates="projects")

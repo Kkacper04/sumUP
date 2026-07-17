@@ -15,3 +15,17 @@ def read_root():
 @app.get("/db-test")
 def test_database(db: Session = Depends(get_db)):
     return {"message": "Connection to the database is successful"}
+
+@app.post("/projects/", response_model=schemas.projectResponse)
+def create_project(project:schemas.projectCreate, db: Session = Depends(get_db)):
+    db_project = models.Project(**project.model_dump())
+    db.add(db_project)
+    db.commit()
+    db.refresh(db_project)
+    return db_project
+
+
+@app.get("/projects/", response_model=List[schemas.projectResponse])
+def get_projects(db: Session = Depends(get_db)):
+    projects = db.query(models.Project).all()
+    return projects

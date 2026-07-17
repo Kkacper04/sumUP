@@ -1,7 +1,17 @@
-from fastapi import FastAPI
+from typing import List
+from fastapi import FastAPI, Depends, HTTPException
+from sqlalchemy.orm import Session
+from backend import models, schemas 
+from backend.database import engine, get_db
 
-app = FastAPI(title="sumUP api")
+
+models.Base.metadata.create_all(bind=engine)
+app = FastAPI(title="SUMUP API")
 
 @app.get("/")
 def read_root():
-    return {"status": "Works"}
+    return {"status": "Server is running!"}
+
+@app.get("/db-test")
+def test_database(db: Session = Depends(get_db)):
+    return {"message": "Connection to the database is successful"}

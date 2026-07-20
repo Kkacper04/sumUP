@@ -3,10 +3,20 @@ from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from backend import models, schemas 
 from backend.database import engine, get_db
-
+from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=engine)
 app = FastAPI(title="SUMUP API")
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"], # React adress
+    allow_credentials=True,
+    allow_methods=["*"], # GET, POST, PUT, DELETE
+    allow_headers=["*"],
+)
+
 
 @app.get("/")
 def read_root():

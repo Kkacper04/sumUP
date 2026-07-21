@@ -11,7 +11,7 @@ class projectResponse(BaseModel):
     name: str
     description: Optional[str] = None
     status: str
-    user_id: int
+    user_id: Optional[int] = None
 
     class Config:
         from_attributes = True

@@ -15,3 +15,6 @@ class projectResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+class projectStatusUpdate(BaseModel):
+    status: str

@@ -9,3 +9,5 @@ venv/
 env.bak/
 venv.bak/
 .env
+*.db
+*.sqlite
